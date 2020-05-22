@@ -1,3 +1,4 @@
+package ping_n_websites;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;

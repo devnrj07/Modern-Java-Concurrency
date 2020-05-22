@@ -23,8 +23,12 @@ With jdk 1.5 came the modern package `java.util.concurrent` which contains moder
     * **ExecutorCompletionService** - an implementation of CompletionService interface.  This class arranges that submitted tasks are, upon completion, placed on a queue accessible using take. The class is lightweight enough to be suitable for transient use when processing groups of tasks. 
 
 
-* JDK 1.9 included a ` publish-subscribe` framework for reactive streams. More details [here]()
+* JDK 1.9 included a `publish-subscribe` framework for reactive streams. More details [here]()
 
+* For Synchronization between the threads we should use either of the aid classes :
+  * CountDownLatch : A synchronization aid that allows one or more threads to wait until a set of operations being performed in other threads completes.
+  * CyclicBarrier : A synchronization aid that allows a set of threads to all wait for each other to reach a common barrier point. CyclicBarriers are useful in programs involving a fixed sized party of threads that must occasionally wait for each other. The barrier is called cyclic because it can be re-used after the waiting threads are released. 
+  * FutureTask : A cancellable asynchronous computation. This class provides a base implementation of Future, with methods to start and cancel a computation, query to see if the computation is complete, and retrieve the result of the computation.
 
  * **Lifecycle** of a submitted task to an executor
     1. *created* - the task object has been created, but not yet submitted to an Executor.
@@ -34,9 +38,10 @@ With jdk 1.5 came the modern package `java.util.concurrent` which contains moder
 
 # Examples
 
-| Name |  Summary
-| ------------ | ----------- |
-| [Pinging N websites in parallel](./ping_n_websites/) | Callable, Executor |
+| Name                                                                 | Summary                               |
+| -------------------------------------------------------------------- | ------------------------------------- |
+| [Pinging N websites in parallel](./ping_n_websites/)                 | Callable, Executor, CompletionService |
+| [fetching the list of available printers](./fetch_list_of_printers/) | Runnable, Executor, CountDownLatch |
 
 
  # Definitions
