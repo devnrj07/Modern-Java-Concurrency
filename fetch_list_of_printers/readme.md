@@ -11,3 +11,17 @@ The example has the following context: in client side programming, it's common t
 > Finished fetching list of printers. Nanos: 926796146
 > Num printers found:0
 > Seeing this many printers:0 
+
+**More on countDown latch**
+
+CoundDownLatch enables you to make a thread wait till all other threads are done with their execution.
+
+Pseudo code can be:
+>// Main thread starts
+// Create CountDownLatch for N threads
+// Create and start N threads
+// Main thread awaits on latch
+// N threads completes there tasks are returns
+// Main thread resume execution
+
+Here, **await()** method waits for countdownlatch flag to become 0, and **countDown()** method decrements countdownlatch flag by 1.
