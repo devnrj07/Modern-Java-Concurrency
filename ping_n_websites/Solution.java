@@ -3,6 +3,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.Callable;
 import java.util.concurrent.CompletionService;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
@@ -50,9 +55,9 @@ public class Solution {
   */
   
     void pingAndReportEachInstantly() throws InterruptedException, ExecutionException{
-        int numOfThreads = URLs.size() > 5 ? 5: Urls.size();
+        int numOfThreads = URLs.size() > 5 ? 5: URLs.size();
         ExecutorService executor = Executors.newFixedThreadPool(numOfThreads);
-        CompletionService<Callable<PingResult>> compService = new ExecutorCompletionService<>(executor);
+        CompletionService<PingResult> compService = new ExecutorCompletionService<>(executor);
 
         for(String url : URLs){
             compService.submit(new Task(url));
@@ -71,7 +76,7 @@ public class Solution {
   */ 
    void pingAndReportAlltogether() throws InterruptedException, ExecutionException{
        Collection<Callable<PingResult>> tasks = new ArrayList<>();
-       for(Sting url : URLs){
+       for(String url : URLs){
            tasks.add(new Task(url));
        }
        
@@ -94,20 +99,11 @@ public class Solution {
   */
   void pingAndReportSequentially() throws MalformedURLException {
     for(String url : URLs){
-      PingResult pingResult = pingAndReportStatus(url);
+        Task task = new Task(url);
+      PingResult pingResult = task.pingAndReportStatus(url);
       log(pingResult);
     }
   }
-
-
-
-
-
-
-
-
-
-
 
 
     private static final List<String> URLs = Arrays.asList("http://www.youtube.com/", "http://www.google.ca/","http://www.date4j.net", "http://www.web4j.com");
@@ -137,6 +133,7 @@ public class Solution {
             try{    
                 URLConnection connection = newUrl.openConnection();
                 // connection successful hence ping passed
+                //log("output "+connection.getInputStream().read());
                 pingResult.SUCCESS = true;
                 long end = System.currentTimeMillis();
                 pingResult.TIMING = end - start;
